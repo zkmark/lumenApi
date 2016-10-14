@@ -22,4 +22,12 @@ class Curso extends Model{
 		//Un curso pertenece a muchos estudiantes
 		return $this->belongsToMany('App\Estudiante');
 	}
+
+	/*
+		Para migrar este modelo
+		php artisan make:migration CursoMigration --create=cursos
+		
+		En singular por muchos a muchos
+		php artisan make:migration CursoEstudianteMigration --create=curso_estudiante
+	*/
 }
