@@ -32,7 +32,12 @@ return [
     */
 
     'grant_types' => [
-
+        //client_credentials se obtiene de las credenciales del cliente
+        'client_credentials' => [
+            'class' => '\League\OAuth2\Server\Grant\ClientCredentialsGrant',
+            //Por cuantos segundos sera valido
+            'access_token_ttl' => 3600
+        ],
     ],
 
     /*

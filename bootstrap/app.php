@@ -1,7 +1,5 @@
 <?php
 
-//Agregamos un alias para evitar errores
-class_alias(Illuminate\Support\Facades\Config::class, 'Config');
 
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -23,6 +21,10 @@ Dotenv::load(__DIR__.'/../');
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
+
+//Agregamos un alias para evitar errores
+class_alias(Illuminate\Support\Facades\Config::class, 'Config');
+
 
 //Habilitado //para rutas sessiones
 $app->withFacades();
@@ -75,6 +77,12 @@ $app->middleware([
 // $app->routeMiddleware([
 
 // ]);
+
+//Este routeMiddleware se ejecutara cuando lo solicitemos
+$app->routeMiddleware([
+	//Cuando se llame a este Middleware oauth, se ejecutara el Middleware qe verificara que se recibio un Middleware y que es valido
+	'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------

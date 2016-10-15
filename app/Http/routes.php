@@ -42,3 +42,9 @@ $app->delete('/profesores/{profesores}/cursos/{cursos}', 'ProfesorCursoControlle
 $app->get('/cursos/{cursos}/estudiantes', 'CursoEstudianteController@index');
 $app->post('/cursos/{cursos}/estudiantes/{estudiantes}', 'CursoEstudianteController@store');
 $app->delete('/cursos/{cursos}/estudiantes/{estudiantes}', 'CursoEstudianteController@destroy');
+
+//Por metodo post,
+$app->post('/oauth/access_token', function() use($app) {
+  //Regresa un json que usa el facade authorizer y llama al metodo issueAccessToken que construye el access token si es correcto.
+  return response()->json($app->make('oauth2-server.authorizer')->issueAccessToken());
+});

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         Profesor::truncate();
         Curso::truncate();
         DB::table('curso_estudiante')->truncate();
+        DB::table('oauth_clients')->truncate();
 
         //Creamos
         factory(Profesor::class, 50)->create();
@@ -39,6 +40,8 @@ class DatabaseSeeder extends Seeder
             //Le agregamos los estudiantes a la relacion
             $curso->estudiantes()->attach(array_rand(range(1, 500),40));
         });
+
+        $this->call('OAuthClientSeeder');
 
         Model::reguard();
     }
