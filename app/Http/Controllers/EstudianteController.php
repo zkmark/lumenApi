@@ -46,8 +46,16 @@ class EstudianteController extends Controller{
 		return $this->crearRespuestaError('El id especificado no corresponde a un estudiante', 404);
 	}
 
-	public function destroy(){
-		return 'desde destroy en estudiantecontroller';
+	public function destroy($estudiante_id){
+		$estudiante = Estudiante::find($estudiante_id);
+		if($estudiante)
+		{
+			//Para actualizar la relacion de dependencias de llaves foraneas (elimina relacion con cursos)
+			$estudiante->cursos()->sync([]);
+			$estudiante->delete();
+			return $this->crearRespuesta('El estudiante ha sido eliminado', 200);
+		}
+		return $this->crearRespuestaError('No existe estudiante con el id especificado', 404);
 	}
 
 	public function validacion($request){
