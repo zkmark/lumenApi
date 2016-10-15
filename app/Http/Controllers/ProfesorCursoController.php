@@ -39,9 +39,32 @@ class ProfesorCursoController extends Controller{
 		return $this->crearRespuestaError('No existe un profesor con el id dado', 404);
 	}
 
-	public function update()
-	{
-		return 'desde update en profesorcursocontroller';
+	public function update(Request $request, $profesor_id, $curso_id){
+		$profesor = Profesor::find($profesor_id);
+		
+		if($profesor){
+			$curso = Curso::find($curso_id);
+			
+			//Si exite
+			if($curso){
+				
+				//Validamos
+				$this->validacion($request);
+				//Obtenemos los datos
+				$curso->titulo = $request->get('titulo');
+				$curso->descripcion = $request->get('descripcion');
+				$curso->valor = $request->get('valor');
+				$curso->profesor_id = $profesor_id;
+				
+				$curso->save();
+				
+				return $this->crearRespuesta('El curso se ha actualizado', 200);
+			}
+
+			return $this->crearRespuestaError('No existe un curso con el id dado', 404);
+		}
+
+		return $this->crearRespuestaError('No existe un profesor con el id dado', 404);
 	}
 
 	public function destroy()
