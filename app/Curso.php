@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curso extends Model{
 	//Atributos que se llenaran y sean visibles
-	protected $fillable = ['titulo', 'description', 'valor'];
+	protected $fillable = ['titulo', 'description', 'valor', 'profesor_id'];
 
 	//Atributos ocultos
 	protected $hidden = ['id', 'created_at', 'updated_at'];
