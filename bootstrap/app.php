@@ -1,5 +1,9 @@
 <?php
 
+//Agregamos un alias para evitar errores
+class_alias(Illuminate\Support\Facades\Config::class, 'Config');
+
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 //Habilitado //Carga valores de .env
@@ -58,13 +62,15 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
+$app->middleware([
+	//https://github.com/esbenp/oauth2-server-lumen#register-package
+	'LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware'
 //     // Illuminate\Cookie\Middleware\EncryptCookies::class,
 //     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 //     // Illuminate\Session\Middleware\StartSession::class,
 //     // Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
-// ]);
+]);
 
 // $app->routeMiddleware([
 
@@ -83,6 +89,10 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
+//Providers de https://github.com/esbenp/oauth2-server-lumen#register-package
+$app->register('LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider');
+$app->register('Optimus\OAuth2Server\OAuth2ServerServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
