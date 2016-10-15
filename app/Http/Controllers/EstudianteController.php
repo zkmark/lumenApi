@@ -21,6 +21,36 @@ class EstudianteController extends Controller{
 	}
 
 	public function store(Request $request){
+		$this->validate($request, $reglas);
+		
+		Estudiante::create($request->all());
+		return $this->crearRespuesta('El estudiante ha sido creado', 201);
+	}
+
+	public function update(Request $request, $estudiante_id){
+		$estudiante = Estudiante::find($estudiante_id);
+		if($estudiante)
+		{
+			$this->validacion($request);
+			$nombre = $request->get('nombre');
+			$direccion = $request->get('direccion');
+			$telefono = $request->get('telefono');
+			$carrera = $request->get('carrera');
+			$estudiante->nombre = $nombre;
+			$estudiante->direccion = $direccion;
+			$estudiante->telefono = $telefono;
+			$estudiante->carrera = $carrera;
+			$estudiante->save();
+			return $this->crearRespuesta("El estudiante $estudiante->id has sido editado", 200);
+		}
+		return $this->crearRespuestaError('El id especificado no corresponde a un estudiante', 404);
+	}
+
+	public function destroy(){
+		return 'desde destroy en estudiantecontroller';
+	}
+
+	public function validacion($request){
 		$reglas = 
 		[
 			'nombre' => 'required',
@@ -29,15 +59,5 @@ class EstudianteController extends Controller{
 			'carrera' => 'required|in:ingeniería,matemática,física',
 		];
 		$this->validate($request, $reglas);
-		Estudiante::create($request->all());
-		return $this->crearRespuesta('El estudiante ha sido creado', 201);
-	}
-
-	public function update(){
-		return 'desde update en estudiantecontroller';
-	}
-
-	public function destroy(){
-		return 'desde destroy en estudiantecontroller';
 	}
 }
