@@ -1,24 +1,33 @@
-<?php namespace App\Http\Controllers;
-class EstudianteController extends Controller
-{
-	public function index()
-	{
-		return 'desde index en estudiantecontroller';
+<?php 
+namespace App\Http\Controllers;
+//Modelo Estudiante
+use App\Estudiante;
+
+class EstudianteController extends Controller{
+	
+	public function index(){
+		$estudiantes = Estudiante::all();
+		return $this->crearRespuesta($estudiantes, 200);
 	}
-	public function show()
-	{
-		return 'desde show en estudiantecontroller';
+
+	public function show($id){
+		$estudiante = Estudiante::find($id);
+		if($estudiante)
+		{
+			return $this->crearRespuesta($estudiante, 200);
+		}
+		return $this->crearRespuestaError('Estudiante no encontrado', 404);
 	}
-	public function store()
-	{
+
+	public function store(){
 		return 'desde store en estudiantecontroller';
 	}
-	public function update()
-	{
+
+	public function update(){
 		return 'desde update en estudiantecontroller';
 	}
-	public function destroy()
-	{
+
+	public function destroy(){
 		return 'desde destroy en estudiantecontroller';
 	}
 }
