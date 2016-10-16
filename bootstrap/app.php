@@ -1,6 +1,9 @@
 <?php
 
-
+/*
+    Para optimisar en produccion ejecutar
+    composer dumpautoload -o
+*/
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -23,8 +26,8 @@ $app = new Laravel\Lumen\Application(
 );
 
 //Agregamos un alias para evitar errores
+//Se usa para seeders y migraciones, se puede desactivar en produccion
 class_alias(Illuminate\Support\Facades\Config::class, 'Config');
-//class_alias('Illuminate\Support\Facades\Config', 'Config');
 
 //Habilitado //para rutas sessiones
 $app->withFacades();
