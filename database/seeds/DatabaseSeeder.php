@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         factory(Profesor::class, 50)->create();
         factory(Estudiante::class, 500)->create();
         //40 cursos, con profesor_id entre 1 y 50
-        factory(Curso::class, 40)->create(['profesor_id' => mt_rand(1, 50)])
+        factory(Curso::class, 40)->create()
         //Le pasamos la instancia del curso que estamos creando
         ->each(function($curso){
             //Le agregamos los estudiantes a la relacion
