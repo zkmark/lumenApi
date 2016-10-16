@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 use App\Curso;
 use App\Estudiante;
 
-class CursoEstudianteController extends Controller
-{
+class CursoEstudianteController extends Controller{
+	
+	public function __construct(){
+		//Para protegernos este middleware se aplicara excepto a index
+		$this->middleware('oauth', ['except' => ['index']]);
+	}
+
 	public function index($curso_id){
 		
 		$curso = Curso::find($curso_id);

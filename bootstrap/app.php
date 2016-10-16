@@ -24,7 +24,7 @@ $app = new Laravel\Lumen\Application(
 
 //Agregamos un alias para evitar errores
 class_alias(Illuminate\Support\Facades\Config::class, 'Config');
-
+//class_alias('Illuminate\Support\Facades\Config', 'Config');
 
 //Habilitado //para rutas sessiones
 $app->withFacades();
@@ -66,7 +66,7 @@ $app->singleton(
 
 $app->middleware([
 	//https://github.com/esbenp/oauth2-server-lumen#register-package
-	'LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware'
+	LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class
 //     // Illuminate\Cookie\Middleware\EncryptCookies::class,
 //     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 //     // Illuminate\Session\Middleware\StartSession::class,
@@ -81,7 +81,7 @@ $app->middleware([
 //Este routeMiddleware se ejecutara cuando lo solicitemos
 $app->routeMiddleware([
 	//Cuando se llame a este Middleware oauth, se ejecutara el Middleware qe verificara que se recibio un Middleware y que es valido
-	'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+	'oauth' => Optimus\OAuth2Server\Middleware\OAuthMiddleware::class,
 ]);
 
 /*

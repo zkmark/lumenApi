@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProfesorCursoController extends Controller{
 
+	public function __construct(){
+		//Para protegernos este middleware se aplicara excepto a index y show
+		$this->middleware('oauth', ['except' => ['index']]);
+	}
+
 	public function index($profesor_id){
 		$profesor = Profesor::find($profesor_id);
 		if($profesor){

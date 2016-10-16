@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ProfesorController extends Controller{
 	
+	public function __construct(){
+		//Para protegernos este middleware se aplicara excepto a index y show
+		$this->middleware('oauth', ['except' => ['index', 'show']]);
+	}
+	
 	public function index(){
 		$profesores = Profesor::all();
 		return $this->crearRespuesta($profesores, 200);
@@ -22,7 +27,7 @@ class ProfesorController extends Controller{
 
 	public function store(Request $request){
 		//Validamos los datos que recibiremos
-		$this->validate($request, $reglas);
+		$this->validacion($request);
 
 		//Obtenemos todos los datos de la peticion y creamos
 		Profesor::create($request->all());
@@ -40,10 +45,12 @@ class ProfesorController extends Controller{
 			$direccion = $request->get('direccion');
 			$telefono = $request->get('telefono');
 			$profesion = $request->get('profesion');
+
 			$profesor->nombre = $nombre;
 			$profesor->direccion = $direccion;
 			$profesor->telefono = $telefono;
 			$profesor->profesion = $profesion;
+			
 			$profesor->save();
 			return $this->crearRespuesta("El profesor $profesor->id has sido editado", 200);
 		}

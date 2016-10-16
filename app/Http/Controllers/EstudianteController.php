@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class EstudianteController extends Controller{
 	
+	public function __construct(){
+		//Para protegernos este middleware se aplicara excepto a index y show
+		$this->middleware('oauth', ['except' => ['index', 'show']]);
+	}
+	
 	public function index(){
 		$estudiantes = Estudiante::all();
 		return $this->crearRespuesta($estudiantes, 200);
@@ -21,7 +26,7 @@ class EstudianteController extends Controller{
 	}
 
 	public function store(Request $request){
-		$this->validate($request, $reglas);
+		$this->validacion($request);
 		
 		Estudiante::create($request->all());
 		return $this->crearRespuesta('El estudiante ha sido creado', 201);
